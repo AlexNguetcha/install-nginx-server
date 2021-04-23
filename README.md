@@ -1,6 +1,10 @@
 # install-nginx-server
 Install nginx server faster
 
+./install-server.sh
+
+when it stop 
+
 #####1. modify default config and set port on 81
 do : nano /etc/nginx/sites-available/default
 

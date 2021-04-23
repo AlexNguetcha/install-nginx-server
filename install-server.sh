@@ -67,13 +67,8 @@ sudo chown -R mysql:mysql /var/lib/mysql
 
 sudo mysqld_safe --skip-grant-tables &
 
+echo "After prompt Type lines into sql-user-update.sh (line by line)"
+
 mysql -u root
 #Type lines into sql-user-update.sh (line by line)
-
-/etc/init.d/mysql stop
-service mysql stop
-
-echo "Please reboot your computer, mysql must restart with some grants"
-
-echo ""
 
