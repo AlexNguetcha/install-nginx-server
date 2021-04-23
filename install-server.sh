@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-sudo su
 #update system dependencies
 apt-get update -y
 apt-get upgrade -y

@@ -3,6 +3,7 @@ Install nginx server faster
 
 ### 1. Launch ./install-server.sh
 ```
+sudo su
 ./install-server.sh
 ```
 
