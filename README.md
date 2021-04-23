@@ -1,18 +1,33 @@
 # install-nginx-server
 Install nginx server faster
 
+###1. Launch ./install-server.sh
+```
 ./install-server.sh
+```
 
-when it stop 
+when it stop follow instructions
 
-#####1. modify default config and set port on 81
-do : nano /etc/nginx/sites-available/default
+###2. launch ./finish-install.sh
 
-##### then change port 80-->81
+```
+./finish-install.sh
+```
 
-#####2. create new config as site.conf and paste this text
 
-do nano /etc/nginx/sites-available/site.conf
+###3. Change the port 80 to Port 81 and save
+
+#####modify default config and set port on 81
+
+```
+nano /etc/nginx/sites-available/default
+```
+
+###4. create new config as site.conf and paste this content
+
+```
+nano /etc/nginx/sites-available/site.conf
+```
 
 paste the next content 
 
