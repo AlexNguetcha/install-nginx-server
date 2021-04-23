@@ -1,29 +1,29 @@
 # install-nginx-server
 Install nginx server faster
 
-###1. Launch ./install-server.sh
+### 1. Launch ./install-server.sh
 ```
 ./install-server.sh
 ```
 
 when it stop follow instructions
 
-###2. launch ./finish-install.sh
+### 2. launch ./finish-install.sh
 
 ```
 ./finish-install.sh
 ```
 
 
-###3. Change the port 80 to Port 81 and save
+### 3. Change the port 80 to Port 81 and save
 
-#####modify default config and set port on 81
+##### modify default config and set port on 81
 
 ```
 nano /etc/nginx/sites-available/default
 ```
 
-###4. create new config as site.conf and paste this content
+### 4. create new config as site.conf and paste this content
 
 ```
 nano /etc/nginx/sites-available/site.conf
@@ -102,7 +102,7 @@ server {
 }
 ```
 
-#####Nginx Config for Laravel project
+##### Nginx Config for Laravel project
 
 ```
 server { 
@@ -137,13 +137,13 @@ server {
 
 ```
 
-#####enable this new config
+##### enable this new config
 
 ```
 ln -s /etc/nginx/sites-available/emsit.conf /etc/nginx/sites-enabled/
 ```
 
-#####Add these to prevent header buffer overflow _(to /etc/nginx/nginx.conf)_
+##### Add these to prevent header buffer overflow _(to /etc/nginx/nginx.conf)_
 ```
 fastcgi_buffers 16 16k;
 fastcgi_buffer_size 32k;
@@ -155,11 +155,11 @@ client_max_body_size 10M;
 server_tokens off;
 more_set_headers 'Server: Copany-Server';
 ```
-#####Test configs and reload nginx
+##### Test configs and reload nginx
 ```
 sudo service nginx reload
 ```
-#####Change the permissions of project & give the owns to www-data user (http user)
+##### Change the permissions of project & give the owns to www-data user (http user)
 ```
 chown -R www-data:root /[repertoire_du_projet] 
 ```
