@@ -167,4 +167,4 @@ Change access on entry point of your application
 ```
 chmod 755 /[project_directory]/[entry_point]
 ```
-don't forget to create project database, update schema and migrate
+don't forget to create project database, update schema and other database stuff
