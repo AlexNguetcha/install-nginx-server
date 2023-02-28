@@ -28,7 +28,7 @@ apt install php7.3 php7.3-cli php7.3-common -y
 
 #installing extensions for 7.3
 apt install php-pear php7.3-curl php7.3-dev php7.3-gd php7.3-mbstring php7.3-zip php7.3-mysql php7.3-xml php7.3-fpm
-apt install libapache2-mod-php7.3 php7.3-imagick php7.3-recode php7.3-tidy
+apt install libapache2-mod-php7.3 php7.3-imagick php7.3-recode php7.3-tidy -y
 apt install php7.3-xmlrpc php7.3-intl php7.3-mbstring php7.3-gd -y
 
 #setting php 7.3 as default level
