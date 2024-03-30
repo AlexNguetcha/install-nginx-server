@@ -40,45 +40,33 @@ paste the next content
 ```
 server {
     listen 80;
-    #Your server name
+    # Your server name
     server_name www.yoursite.extension;
-    #The entry point of your application, where nginx will redirect all incoming requests
+    # The entry point of your application, where nginx will redirect all incoming requests
     root /[project_directory];
     
     location / {
-            # try to serve file directly, fallback to index.php
-            try_files $uri /index.php$is_args$args;
+        # try to serve file directly, fallback to index.php
+        try_files $uri /index.php$is_args$args;
     }
-    
-    #Symfony
-    # optionally disable falling back to PHP script for the asset directories;
-    # nginx will return a 404 error when files are not found instead of passing the
-    # request to Symfony (improves performance but Symfony's 404 page is not #displayed)
-    # location /bundles {
-    #     try_files $uri =404;
-    # }
 
-    #FOR SYMFONY FAST CGI
+    # FOR SYMFONY FAST CGI
     location ~ ^/index\.php(/|$) {
-        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock; # Updated for PHP 8.1
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
         fastcgi_read_timeout 600;
 
-
-        # optionally set the value of the environment variables used in the application
+        # Optionally set the value of the environment variables used in the application
         # fastcgi_param APP_ENV prod;
         # fastcgi_param APP_SECRET <app-secret-id>;
         # fastcgi_param DATABASE_URL "mysql://db_user:db_pass@host:3306/db_name";
 
         # When you are using symlinks to link the document root to the
         # current version of your application, you should pass the real
-        # application path instead of the path to the symlink to PHP
-        # FPM.
+        # application path instead of the path to the symlink to PHP FPM.
         # Otherwise, PHP's OPcache may not properly detect changes to
-        # your PHP files (see
-        #https://github.com/zendtech/ZendOptimizerPlus/issues/126
-        # for more information).
+        # your PHP files.
         fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
         fastcgi_param DOCUMENT_ROOT $realpath_root;
         # Prevents URIs that include the front controller. This will 404:
@@ -87,58 +75,58 @@ server {
         internal;
     }
 
-    # return 404 for all other php files not matching the front controller
-    # this prevents access to other php files you don't want to be accessible.
-    
+    # Return 404 for all other php files not matching the front controller
+    # This prevents access to other php files you don't want to be accessible.
     location ~ \.php$ {
         return 404;
     }
 
-    #Configure end point for errors logs
-    
+    # Configure endpoint for error logs
     error_log /var/log/nginx/site_error.log;
     access_log /var/log/nginx/site_access.log;
 
-    #need nginx-extras to work IMPORTANT : put it on /etc/nginx/nginx.conf[http]
-    #add_header X-Frame-Options "SAMEORIGIN";
-    #client_max_body_size 10M;
-    #server_tokens off;
-    #more_set_headers 'Server: Copany-Server';
+    # Uncomment and configure additional Nginx options as needed
+    # add_header X-Frame-Options "SAMEORIGIN";
+    # client_max_body_size 10M;
+    # server_tokens off;
+    # more_set_headers 'Server: Copany-Server';
 }
+
 ```
 
 ##### Nginx Config for Laravel project
 
 ```
-server { 
-    listen 80; 
-    listen [::]:80 
-    ipv6only=on;#you can remove this
-     
+server {
+    listen 80;
+    listen [::]:80 ipv6only=on; # you can remove this if not needed
+
     # Webroot Directory for Laravel project
-    root /[laravel_project]/public; 
-    index index.php index.html index.htm; 
-    
-    # Your Domain Name 
-    server_name laravel.site.co; 
-    
-    location / { 
-        try_files $uri $uri/ /index.php?$query_string; 
-    }  
-    
-    # PHP-FPM Configuration Nginx 
-    location ~ \.php$ { 
-        try_files $uri =404; 
-        fastcgi_split_path_info ^(.+\.php)(/.+)$; 
-        fastcgi_pass unix:/var/run/php/php7.3-fpm.sock; 
-        fastcgi_index index.php; 
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name; include fastcgi_params; 
-    } 
-    
-    #Log files for Debugging 
-    access_log /var/log/nginx/laravel-access.log; 
+    root /[laravel_project]/public;
+    index index.php index.html index.htm;
+
+    # Your Domain Name
+    server_name laravel.site.co;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # PHP-FPM Configuration Nginx
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock; # Updated for PHP 8.1
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    # Log files for Debugging
+    access_log /var/log/nginx/laravel-access.log;
     error_log /var/log/nginx/laravel-error.log;
 }
+
 
 ```
 
